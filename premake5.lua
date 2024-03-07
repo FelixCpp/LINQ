@@ -10,7 +10,6 @@ project "LINQ"
     cppdialect "C++20"
     targetdir "bin/%{cfg.buildcfg}"
     objdir "bin/%{cfg.buildcfg}"
-    files { "LINQ/lib/**.hpp", "LINQ/Main.cpp" }
 
     filter "configurations:Debug"
         defines { "DEBUG" }
