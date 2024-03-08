@@ -13,6 +13,7 @@
 #include "builders/to_deque.hpp"
 #include "builders/to_forward_list.hpp"
 #include "builders/to_list.hpp"
+#include "builders/to_map.hpp"
 #include "builders/to_queue.hpp"
 #include "builders/to_set.hpp"
 #include "builders/to_unordered_set.hpp"
