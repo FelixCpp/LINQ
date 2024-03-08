@@ -7,35 +7,37 @@
 namespace linq
 {
 	template <concepts::range Range>
-	struct take_range
+	struct skip_range
 	{
 		using value_type = typename Range::value_type;
 		using reference = typename Range::reference;
 
 		Range range;
 		std::size_t count;
-		std::size_t taken;
+		std::size_t skipped;
 
-		constexpr explicit take_range(Range range, const std::size_t count) :
+		constexpr explicit skip_range(Range range, const std::size_t count) :
 			range(std::move(range)),
 			count(count),
-			taken(0)
+			skipped(0)
 		{}
 
 		reference get_value()
 		{
-			assert(taken <= count);
+			assert(skipped > count);
 			return range.get_value();
 		}
 
 		bool move_next()
 		{
-			if (taken >= count)
+			while (skipped++ < count)
 			{
-				return false;
+				if (!range.move_next())
+				{
+					return false;
+				}
 			}
 
-			++taken;
 			return range.move_next();
 		}
 
@@ -45,23 +47,23 @@ namespace linq
 		}
 	};
 
-	struct take_builder
+	struct skip_builder
 	{
 		std::size_t count;
 
-		constexpr explicit take_builder(const std::size_t count):
+		constexpr explicit skip_builder(const std::size_t count) :
 			count(count)
 		{}
 
-		constexpr auto build(concepts::range auto range) -> decltype(take_range{ std::move(range), count })
+		constexpr auto build(concepts::range auto range) -> decltype(skip_range{ std::move(range), count })
 		{
-			return take_range{ std::move(range), count };
+			return skip_range{ std::move(range), count };
 		}
 	};
 
-	constexpr auto take(const std::size_t count)
+	constexpr auto skip(const std::size_t count)
 	{
-		return take_builder{ count };
+		return skip_builder{ count };
 	}
 
 }

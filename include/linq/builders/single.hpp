@@ -3,8 +3,6 @@
 #include "../concepts.hpp"
 #include "../exceptions.hpp"
 
-#include <optional>
-
 namespace linq
 {
 	struct single_exception final : std::exception
@@ -16,7 +14,7 @@ namespace linq
 
 	struct single_builder
 	{
-		constexpr auto build(concepts::range auto range) -> decltype(range.get_value())
+		constexpr auto build(concepts::range auto range) -> typename decltype(range)::reference
 		{
 			if (not range.move_next())
 			{

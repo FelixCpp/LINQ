@@ -5,7 +5,7 @@
 namespace linq
 {
 
-	struct empty_builder
+	struct is_empty_builder
 	{
 		constexpr auto build(concepts::range auto range)
 		{
@@ -13,9 +13,9 @@ namespace linq
 		}
 	};
 
-	constexpr auto empty()
+	constexpr auto is_empty()
 	{
-		return empty_builder{};
+		return is_empty_builder{};
 	}
 
 }

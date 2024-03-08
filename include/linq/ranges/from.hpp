@@ -38,7 +38,7 @@ namespace linq
 			return true;
 		}
 
-		constexpr auto operator >> (auto builder) -> decltype(builder.build(*this))
+		constexpr auto operator >> (auto builder) const -> decltype(builder.build(*this))
 		{
 			return builder.build(*this);
 		}
@@ -46,6 +46,14 @@ namespace linq
 
 	template <typename T, size_t Size>
 	constexpr auto from(T(&array)[Size])
+	{
+		const auto begin = std::begin(array);
+		const auto end = std::end(array);
+		return from_range{ begin, end };
+	}
+
+	template <typename T, size_t Size>
+	constexpr auto from(const T(&array)[Size])
 	{
 		const auto begin = std::begin(array);
 		const auto end = std::end(array);

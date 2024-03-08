@@ -40,6 +40,11 @@ namespace linq
 
 			return false;
 		}
+
+		constexpr auto operator >> (auto builder) const -> decltype(builder.build(*this))
+		{
+			return builder.build(*this);
+		}
 	};
 
 	template <typename Predicate>
@@ -51,7 +56,7 @@ namespace linq
 			predicate(std::move(predicate))
 		{}
 
-		constexpr auto build(concepts::range auto range) -> decltype(filter_range{ std::move(range), predicate })
+		constexpr auto build(concepts::range auto range) const -> decltype(filter_range{ std::move(range), predicate })
 		{
 			return filter_range{ std::move(range), predicate };
 		}

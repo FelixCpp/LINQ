@@ -11,7 +11,7 @@ namespace linq
 	struct map_range
 	{
 		using value_type = std::invoke_result_t<Transformer, typename Range::value_type>;
-		using reference = value_type;
+		using reference = value_type&;
 
 		Range range;
 		Transformer transformer;
@@ -42,7 +42,7 @@ namespace linq
 			return cache.has_value();
 		}
 
-		constexpr auto operator >> (auto builder) -> decltype(builder.build(*this))
+		constexpr auto operator >> (auto builder) const -> decltype(builder.build(*this))
 		{
 			return builder.build(*this);
 		}

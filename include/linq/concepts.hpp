@@ -17,4 +17,10 @@ namespace linq::concepts
 	{
 		{ predicate(args...) } -> std::same_as<bool>;
 	};
+
+	template <typename Action, typename ... TArgs>
+	concept action = requires(Action action, TArgs... args)
+	{
+		{ action(args...) } -> std::same_as<void>;
+	};
 }
