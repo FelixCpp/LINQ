@@ -20,7 +20,7 @@ namespace linq
 			current(begin), next(begin), end(end)
 		{}
 
-		reference get_value() const
+		reference get_value()
 		{
 			assert(current != end);
 			return *current;
@@ -37,6 +37,11 @@ namespace linq
 			++next;
 			return true;
 		}
+
+		constexpr auto operator >> (auto builder) -> decltype(builder.build(*this))
+		{
+			return builder.build(*this);
+		}
 	};
 
 	template <typename T, size_t Size>
@@ -44,7 +49,7 @@ namespace linq
 	{
 		const auto begin = std::begin(array);
 		const auto end = std::end(array);
-		return from_range(begin, end);
+		return from_range{ begin, end };
 	}
 
 	template <typename Container>
@@ -52,7 +57,7 @@ namespace linq
 	{
 		const auto begin = container.begin();
 		const auto end = container.end();
-		return from_range(begin, end);
+		return from_range{ begin, end };
 	}
 
 	template <typename Container>
@@ -60,12 +65,12 @@ namespace linq
 	{
 		const auto begin = container.cbegin();
 		const auto end = container.cend();
-		return from_range(begin, end);
+		return from_range{ begin, end };
 	}
 
 	template <typename Iterator>
 	constexpr auto from(Iterator begin, Iterator end)
 	{
-		return from_range(begin, end);
+		return from_range{ begin, end };
 	}
 }
