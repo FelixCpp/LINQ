@@ -8,14 +8,14 @@ namespace linq
 	struct empty_range
 	{
 		using value_type = std::decay_t<T>;
-		using reference = value_type&;
+		using reference = const value_type&;
 
-		reference get_value()
+		constexpr reference get_value()
 		{
 			throw std::runtime_error("Cannot receive value from empty sequence.");
 		}
 
-		bool move_next()
+		constexpr bool move_next()
 		{
 			return false;
 		}

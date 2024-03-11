@@ -22,13 +22,13 @@ namespace linq
 			taken(0)
 		{}
 
-		reference get_value()
+		constexpr reference get_value()
 		{
 			assert(taken <= count);
 			return range.get_value();
 		}
 
-		bool move_next()
+		constexpr bool move_next()
 		{
 			if (taken >= count)
 			{

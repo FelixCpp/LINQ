@@ -30,7 +30,7 @@ namespace linq
 			iteration_state(initial)
 		{}
 
-		reference get_value()
+		constexpr reference get_value()
 		{
 			assert(iteration_state != initial && iteration_state != done);
 
@@ -41,7 +41,7 @@ namespace linq
 			}
 		}
 
-		bool move_next()
+		constexpr bool move_next()
 		{
 			switch (iteration_state)
 			{

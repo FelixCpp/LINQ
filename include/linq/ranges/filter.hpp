@@ -23,12 +23,12 @@ namespace linq
 			predicate(std::move(predicate))
 		{}
 
-		reference get_value()
+		constexpr reference get_value()
 		{
 			return range.get_value();
 		}
 
-		bool move_next()
+		constexpr bool move_next()
 		{
 			while (range.move_next())
 			{

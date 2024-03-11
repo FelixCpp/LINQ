@@ -23,13 +23,13 @@ namespace linq
 			cache(std::nullopt)
 		{}
 
-		[[nodiscard]] reference get_value()
+		constexpr reference get_value()
 		{
 			assert(cache.has_value());
 			return cache.value();
 		}
 
-		[[nodiscard]] bool move_next()
+		constexpr bool move_next()
 		{
 			if (range.move_next())
 			{

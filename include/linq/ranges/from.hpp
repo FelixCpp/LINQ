@@ -20,13 +20,13 @@ namespace linq
 			current(begin), next(begin), end(end)
 		{}
 
-		reference get_value()
+		constexpr reference get_value()
 		{
 			assert(current != end);
 			return *current;
 		}
 
-		bool move_next()
+		constexpr bool move_next()
 		{
 			if (next == end)
 			{
@@ -44,13 +44,6 @@ namespace linq
 		}
 	};
 
-	template <typename T, size_t Size>
-	constexpr auto from(T(&array)[Size])
-	{
-		const auto begin = std::begin(array);
-		const auto end = std::end(array);
-		return from_range{ begin, end };
-	}
 
 	template <typename T, size_t Size>
 	constexpr auto from(const T(&array)[Size])
@@ -60,15 +53,7 @@ namespace linq
 		return from_range{ begin, end };
 	}
 
-	template <typename Container>
-	constexpr auto from(Container& container)
-	{
-		const auto begin = container.begin();
-		const auto end = container.end();
-		return from_range{ begin, end };
-	}
-
-	template <typename Container>
+	template <std::ranges::range Container>
 	constexpr auto from(const Container& container)
 	{
 		const auto begin = container.cbegin();
